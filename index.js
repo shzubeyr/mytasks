@@ -8,7 +8,7 @@ const port= 5555;
 
 app.get('/',async(req, res)=>{
     const tasks = await Tasks.find();
-    res.json(tasks);
+    res.status(200).json(tasks);
 })
 //comment code
 app.post('/',async(req,res)=>{
@@ -19,7 +19,7 @@ app.post('/',async(req,res)=>{
     })
 
     const newTask = await task.save()
-    res.json(newTask)
+    res.status(201).json(newTask)
     
 })
 
@@ -33,14 +33,14 @@ app.put('/:id',async(req, res)=>{
         task.data= date;
         task.isfinished= isfinished;
         const updattedtask = await task.save();
-        res.json(updattedtask);
+        res.status(200).json(updattedtask);
     }
      
 })
 
 app.delete('/:id', async(req,res)=>{
     const task= await Tasks.findByIdAndDelete(req.params.id);
-    res.json({message:"deleted"})
+    res.status(200).json({message:"deleted"})
 })
 
 app.listen(port,()=>{
